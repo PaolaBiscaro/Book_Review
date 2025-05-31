@@ -13,16 +13,10 @@ return new class extends Migration
     {
         Schema::create('autors', function (Blueprint $table) {
             $table->id();
-
+            $table->string('nome');
+            $table->date('dt_nasc');
+            $table->text('biografia');
             $table->timestamps();
-            // $table->string('name');
-            // $table->decimal('price', 8,2);
-            // $table->text('description');
-
-            // $table->unsignedBigInteger('category_id')->nullable();
-            // $table->foreign('category_id')->references('id')->on('categories');
-
-
         });
     }
 

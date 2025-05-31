@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('livros', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('sinopse');
+            $table->unsignedBigInteger('autor_id'); //campo que referencia chave estrangeira
+            $table->foreign('autor_id')->references('id')->on('autors');
+            $table->unsignedBigInteger('genero_id');
+            $table->foreign('genero_id')->references('id')->on('generos');
             $table->timestamps();
         });
     }

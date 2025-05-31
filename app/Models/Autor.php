@@ -9,9 +9,9 @@ class Autor extends Model
     protected $table = 'autores';
     protected $fillable = ['nome', 'dt_nasc', 'biografia'];
 
-    #Relação Autor-Livro
+    #Relação Autor possui varios livros
     public function livros()
     {
-        return $this->hasMany(Livro::class, 'livro_id', 'id');
+        return $this->hasMany(Livro::class, 'autor_id', 'id');
     }
 }
