@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\LivroStoreRequest;
+use App\Http\Requests\LivroUpdateRequest;
+use App\Http\Resources\LivroResource;
 use Illuminate\Http\JsonResponse;
 use App\Services\LivroService;
 
@@ -19,33 +22,44 @@ class LivroController extends Controller
      public function get(){
         $livros = $this->livroService->get();
 
-        return response()->json($livros);
+        return LivroResource::collection($livros);
     }
 
     public function details($id){
-        $livro = $this->livroService->details($id);
-
-        return response()->json($livro);
+        try{
+            $livro = $this->livroService->details($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Livro não encontrado'],404);
+        }
+        return new LivroResource($livro);
     }
 
-    public function store(Request $request){
-        $data = $request->all();
+    public function store(LivroStoreRequest $request){
+        $data = $request->validated();
         $livro = $this->livroService->store($data);
 
-        return response()->json($livro);
+        return new LivroResource($livro);
     }
 
-    public function update(int $id, Request $request){
-        $data = $request->all();
-        $livro = $this->livroService->update($id, $data);
+    public function update(int $id, LivroUpdateRequest $request){
+        $data = $request->validated();
+        try{
+            $livro = $this->livroService->update($id,$data);
 
-        return response()->json($livro);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Livro não encontrado'],404);
+        }
+
+        return new LivroResource($livro);
     }
 
     public function delete($id){
-        $livro = $this->livroService->delete($id);
-
-        return response()->json($id);
+        try{
+            $livro = $this->livroService->delete($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Livro não encontrado'],404);
+        }
+        return new LivroResource($livro);
     }
 }
 
