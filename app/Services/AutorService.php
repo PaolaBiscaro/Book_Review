@@ -33,13 +33,15 @@ class AutorService
         return $autor;
     }
 
-    public function update(int $id, array $data){
+    public function update(int $id, array $data)
+    {
         $autor = $this->autorRepository->update($id, $data);
 
         return $autor;
     }
 
-    public function delete(int $id){
+    public function delete(int $id)
+    {
         $autor = Autor::findOrFail($id);
         foreach ($autor->livros as $livro) {
             $livro->autor_id = null;
@@ -48,6 +50,6 @@ class AutorService
 
         $autor->delete();
 
-        return response()->json($autor);
+        return $autor;
     }
 }
