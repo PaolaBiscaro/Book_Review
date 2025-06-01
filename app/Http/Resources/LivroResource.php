@@ -20,7 +20,6 @@ class LivroResource extends JsonResource
             'autor'=> new AutorResource($this->whenLoaded('autor')),
             'sinopse'=> $this->sinopse,
             'genero'=> new GeneroResource($this->whenLoaded('genero'))
-
         ];
     }
 }

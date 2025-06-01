@@ -13,7 +13,7 @@ class AutorRepository{
     }
 
     public function details(int $id){
-        return Genero::findOrFail($id);
+        return Autor::findOrFail($id);
     }
 
     public function update(int $id, array $data){

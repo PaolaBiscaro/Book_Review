@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AutorService;
+use App\Http\Resources\AutorResource;
+use App\Http\Requests\AutorStoreRequest;
+use App\Http\Requests\AutorUpdateRequest;
 use Illuminate\Http\JsonResponse;
+
 
 class AutorController extends Controller
 {
@@ -17,35 +21,45 @@ class AutorController extends Controller
     public function get(){
         $autores = $this->autorService->get();
 
-        return response()->json($autores);
+        return AutorResource::collection($autores);
     }
 
-    public function store(Request $request){
-        $data = $request->all();
+    public function store(AutorStoreRequest $request){
+        $data = $request->validated();
         $autor = $this->autorService->store($data);
 
-        return response()->json($autor);
+        return new AutorResource($autor);
     }
 
     public function details(int $id){
-        $autor = $this->autorService->details($id);
-
-        return response()->json($autor);
+        try{
+            $autor = $this->autorService->details($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Autor não encontrado'],404);
+        }
+        return new AutorResource($autor);
     }
 
 
-    public function update(int $id, Request $request){
-        $data = $request->all();
-        $autor = $this->autorService->update($id, $data);
+    public function update(int $id, AutorUpdateRequest $request){
+         $data = $request->validated();
+        try{
+            $autor = $this->autorService->update($id,$data);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Autor não encontrado'],404);
+        }
 
-        return response()->json($autor);
+        return new AutorResource($autor);
     }
 
-    public function delete($id){
-        $autor = $this->autorService->delete($id);
-
-        return response()->json($autor);
-
+    public function delete(int $id)
+    {
+        try{
+            $autor = $this->autorService->delete($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Autor não encontrado'],404);
+        }
+        return new AutorResource($autor);
     }
 
 }
