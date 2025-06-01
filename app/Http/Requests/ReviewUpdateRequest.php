@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReviewStoreRequest extends FormRequest
+class ReviewUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,10 +22,7 @@ class ReviewStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nota'=>'required|integer|min:1|max:5',
-            'texto'=>'nullable|string|max:1000',
-            'livro_id'=>'required|exists:livros,id',
-            'usuario_id'=>'required|exists:usuarios,id'
+            //
         ];
     }
 }

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviews', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedTinyInteger('nota');
             $table->text('texto');
-            $table->unsignedBigInteger('livro_id')->nullable();
-            $table->foreign('livro_id')->references('id')->on('livros');
-            $table->unsignedBigInteger('usuario_id')->nullable();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('livro_id');
+            $table->foreign('livro_id')->references('id')->on('livros')->onDelete('cascade');
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

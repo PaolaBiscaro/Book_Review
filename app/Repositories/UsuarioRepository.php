@@ -5,11 +5,13 @@ use App\Models\Usuario;
 
 class UsuarioRepository{
     public function get(){
-        return Usuario::select('id', 'nome', 'email',  'created_at', 'updated_at')->get();
+        return Usuario::all();
+        // return Usuario::select('id', 'nome', 'email',  'created_at', 'updated_at')->get();
     }
 
     public function details(int $id){
-        return Usuario::find($id, ['id', 'nome', 'email', 'created_at', 'updated_at']); //Seleciona apenas os campos que precisa retornar
+        return Usuario::findOrFail($id);
+        // return Usuario::find($id, ['id', 'nome', 'email', 'created_at', 'updated_at']); //Seleciona apenas os campos que precisa retornar
     }
 
     public function store(array $data){

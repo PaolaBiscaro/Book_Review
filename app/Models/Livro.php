@@ -22,4 +22,9 @@ class Livro extends Model
             Genero::class, 'genero_id', 'id'
         );
     }
+
+    #Relação Livro possui varias Reviews
+    public function reviews(){
+    return $this->hasMany(Review::class, 'livro_id', 'id');
+}
 }

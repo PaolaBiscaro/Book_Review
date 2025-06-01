@@ -43,11 +43,6 @@ class AutorService
     public function delete(int $id)
     {
         $autor = Autor::findOrFail($id);
-        foreach ($autor->livros as $livro) {
-            $livro->autor_id = null;
-            $livro->save();
-        }
-
         $autor->delete();
 
         return $autor;
