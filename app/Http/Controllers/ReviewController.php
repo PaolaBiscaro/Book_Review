@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ReviewService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Services\ReviewService;
-
+use App\Http\Requests\ReviewStoreRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ReviewController extends Controller
 {
@@ -28,11 +29,11 @@ class ReviewController extends Controller
         return response()->json($review);
     }
 
-    public function store(Request $request){
-        $data = $request->all();
-        $review = $this->reviewService->store($data);
+    public function store(ReviewStoreRequest $request){
 
-        return response()->json($review);
+        $data = $request->validated();
+        $review = $this->reviewService->store($data);
+        return new ReviewResource($review);
     }
 
     public function update(int $id, Request $request){
