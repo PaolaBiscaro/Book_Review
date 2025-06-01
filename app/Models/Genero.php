@@ -10,7 +10,8 @@ class Genero extends Model
     protected $fillable = ['nome'];
 
     #Relação genero possui varios livros
-    public function livros(){
+    public function livros()
+    {
         return $this->hasMany(Livro::class, 'genero_id', 'id');
     }
 

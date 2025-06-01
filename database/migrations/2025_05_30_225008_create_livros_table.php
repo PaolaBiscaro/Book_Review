@@ -17,8 +17,7 @@ return new class extends Migration
             $table->text('sinopse');
             $table->unsignedBigInteger('autor_id')->nullable();
             $table->foreign('autor_id')->references('id')->on('autores')->nullOnDelete();
-
-            $table->unsignedBigInteger('genero_id');
+            $table->unsignedBigInteger('genero_id')->nullable();
             $table->foreign('genero_id')->references('id')->on('generos');
             $table->timestamps();
         });
