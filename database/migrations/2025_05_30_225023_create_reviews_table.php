@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedTinyInteger('nota');
             $table->text('texto');
-            $table->unsignedBigInteger('livro_id');
+            $table->unsignedBigInteger('livro_id')->nullable();
             $table->foreign('livro_id')->references('id')->on('livros');
-            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->timestamps();
         });
