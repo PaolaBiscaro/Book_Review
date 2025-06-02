@@ -22,6 +22,7 @@ class GeneroStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            
             'nome'=> 'required|string|max:30'
         ];
     }

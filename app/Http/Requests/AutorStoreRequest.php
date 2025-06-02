@@ -24,7 +24,7 @@ class AutorStoreRequest extends FormRequest
         return [
             'nome'=> 'required|string|max:100',
             'dt_nasc'=> 'required|date',
-            'biografia'=> 'required|string|max:300'
+            'biografia'=> 'required|string|max:1000'
         ];
     }
 }

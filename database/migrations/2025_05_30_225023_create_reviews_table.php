@@ -15,7 +15,7 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedTinyInteger('nota');
-            $table->text('texto');
+            $table->text('texto')->nullable();
             $table->unsignedBigInteger('livro_id');
             $table->foreign('livro_id')->references('id')->on('livros')->onDelete('cascade');
             $table->unsignedBigInteger('usuario_id');

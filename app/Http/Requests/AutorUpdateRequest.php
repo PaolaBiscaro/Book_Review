@@ -24,7 +24,7 @@ class AutorUpdateRequest extends FormRequest
         return [
             'nome'=> 'sometimes|string|max:100',
             'dt_nasc'=> 'sometimes|date',
-            'biografia'=> 'sometimes|string|max:300'
+            'biografia'=> 'sometimes|string|max:1000'
         ];
     }
 }
