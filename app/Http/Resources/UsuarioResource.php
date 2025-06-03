@@ -17,7 +17,8 @@ class UsuarioResource extends JsonResource
         return [
             'id'=> $this->id,
             'nome'=> $this->nome,
-            'email'=> $this->email
+            'email'=> $this->email,
+            'reviews' => ReviewResource::collection($this->whenLoaded('reviews'))
         ];
     }
 }

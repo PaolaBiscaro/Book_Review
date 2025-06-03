@@ -52,4 +52,14 @@ class GeneroService
 
         return $genero;
     }
+
+    public function getComLivros()
+    {
+        return $this->generoRepository->getComLivros();
+    }
+
+    public function findLivro(int $id)
+    {
+        return $this->generoRepository->findLivro($id);
+    }
 }

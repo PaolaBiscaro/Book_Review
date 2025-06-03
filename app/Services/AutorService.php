@@ -47,4 +47,14 @@ class AutorService
 
         return $autor;
     }
+
+       public function getComLivros()
+    {
+        return $this->autorRepository->getComLivros();
+    }
+
+    public function findLivro(int $id)
+    {
+        return $this->autorRepository->findLivro($id);
+    }
 }

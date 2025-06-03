@@ -8,6 +8,10 @@ use App\Http\Requests\LivroUpdateRequest;
 use App\Http\Resources\LivroResource;
 use Illuminate\Http\JsonResponse;
 use App\Services\LivroService;
+use App\Http\Resources\ReviewResource;
+use App\Http\Resources\AutorResource;
+use App\Http\Resources\GeneroResource;
+
 
 
 class LivroController extends Controller
@@ -61,6 +65,65 @@ class LivroController extends Controller
         }
         return new LivroResource($livro);
     }
+
+    //Retorno dos livros com os autores
+    public function getComAutores()
+    {
+        $livros = $this->livroService->getComAutores();
+        return LivroResource::collection($livros);
+    }
+
+    //Retorno de um autor de um livro especifico
+    public function findAutor(int $id)
+    {
+        try{
+            $autor = $this->livroService->findAutor($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Autor não encontrado'],404);
+        }
+        return new AutorResource($autor);
+    }
+
+    //Buscar livros com os generos
+    public function getComGeneros()
+    {
+        $livros = $this->livroService->getComGeneros();
+        return BookResource::collection($livros);
+    }
+
+    //Buscar livros de um genero especifico
+    public function findGenero(int $id)
+    {
+        try{
+            $genero = $this->livroService->findGenero($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Gênero não encontrado'],404);
+        }
+        return new GeneroResource($genero);
+    }
+
+    public function findReview(int $id)
+    {
+        try{
+            $reviews = $this->livroService->findReview($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Review não  encontrada'],404);
+        }
+        if ($reviews->isEmpty()) {
+            return response()->json(['message' => 'Nenhuma review encontrada'], 204);
+        }
+        return ReviewResource::collection($reviews);
+    }
+
+
+    public function getComGeneroAutorReview()
+    {
+        $livros = $this->livroService->getComGeneroAutorReview();
+        return LivroResource::collection($livros);
+    }
+
+
+
 }
 
 

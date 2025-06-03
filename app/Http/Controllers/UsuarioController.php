@@ -7,6 +7,7 @@ use App\Services\UsuarioService;
 use App\Http\Resources\UsuarioResource;
 use App\Http\Requests\UsuarioStoreRequest;
 use App\Http\Requests\UsuarioUpdateRequest;
+use App\Http\Resources\ReviewResource;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +46,7 @@ class UsuarioController extends Controller
         }catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Usuario não encontrado'],404);
         }
+
         return new UsuarioResource($usuario);
     }
 
@@ -57,6 +59,7 @@ class UsuarioController extends Controller
         }catch(ModelNotFoundException $e){
             return response()->json(['error'=>'Usuario não encontrado'],404);
         }
+
         return new UsuarioResource($usuario);
     }
 
@@ -69,4 +72,20 @@ class UsuarioController extends Controller
         }
         return new UsuarioResource($usuario);
     }
+
+    public function findReview(int $id)
+    {
+        try{
+            $reviews = $this->usuarioService->findReview($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Review não encontrada'],404);
+        }
+        if ($reviews->isEmpty()) {
+            return response()->json(['message' => 'Nenhuma review encontrada'], 204);
+        }
+
+        return ReviewResource::collection($reviews);
+    }
+
+
 }

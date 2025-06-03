@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Model\Livro;
 use App\Repositories\LivroRepository;
+use App\Http\Resources\LivroResource;
+
 
 class LivroService{
 
@@ -43,5 +45,36 @@ class LivroService{
 
         return $livro;
     }
+    public function getComAutores()
+    {
+        return $this->livroRepository->getComAutores();
+    }
+
+    public function findAutor(int $id)
+    {
+        return $this->livroRepository->findAutor($id);
+    }
+
+    //Para os generos de livros
+    public function getComGeneros()
+    {
+        return $this->livroRepository->getComGeneros();
+    }
+
+    public function findGenero(int $id)
+    {
+        return $this->livroRepository->findGenero($id);
+    }
+
+      public function findReview(int $id)
+    {
+        return $this->livroRepository->findReview($id);
+    }
+
+    public function getComGeneroAutorReview()
+    {
+        return $this->livroRepository->getComGeneroAutorReview();
+    }
+
 }
 

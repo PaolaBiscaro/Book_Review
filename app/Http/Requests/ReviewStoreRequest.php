@@ -22,7 +22,7 @@ class ReviewStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nota'=>'required|integer|min:1|max:5',
+            'nota'=>'required|integer|min:0|max:5',
             'texto'=>'nullable|string|max:1000',
             'livro_id'=>'required|exists:livros,id',
             'usuario_id'=>'required|exists:usuarios,id'

@@ -30,4 +30,19 @@ class GeneroRepository{
         return $genero;
     }
 
+    public function getComLivros()
+    {
+        $generos = Genero::with('livros')->get();
+        return $generos;
+    }
+
+
+    public function findLivro(int $id)
+    {
+        $genero = $this->details($id);
+        $livro = $genero->livros;
+
+        return $livro;
+    }
+
 }

@@ -31,4 +31,11 @@ class UsuarioRepository{
 
         return $usuario;
     }
+
+    public function findReview(int $id)
+    {
+        $usuario = $this->details($id);
+        $reviews = $usuario->reviews;
+        return $reviews;
+    }
 }

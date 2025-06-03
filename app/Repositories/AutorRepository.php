@@ -30,4 +30,17 @@ class AutorRepository{
         return $autor;
     }
 
+    public function getComLivros()
+    {
+        $autores = Autor::with('livros')->get();
+        return $autores;
+    }
+
+    public function findLivro(int $id)
+    {
+        $autores = $this->details($id);
+        $livros = $autores->livros;
+        return $livros;
+    }
+
 }

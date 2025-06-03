@@ -29,4 +29,42 @@ class LivroRepository{
 
         return $livro;
     }
+
+    public function getComAutores()
+    {
+        $livros = Livro::with('autor')->get();
+        return $livros;
+    }
+
+    public function findAutor(int $id)
+    {
+        $livro = $this->details($id);
+        $autor = $livro->autor;
+        return $autor;
+    }
+
+    public function getComGeneros()
+    {
+        $livros = Livro::with('generos')->get();
+        return $livros;
+
+    }
+    public function findGenero(int $id)
+    {
+        $livro = $this->details($id);
+        $genero = $livro->genero;
+        return $genero;
+    }
+
+    public function findReview(int $id)
+    {
+        $livro = $this->details($id);
+        $reviews = $livro->reviews;
+        return $reviews;
+    }
+
+    public function getComGeneroAutorReview()
+{
+    return Livro::with(['genero', 'autor', 'reviews'])->get();
+}
 }

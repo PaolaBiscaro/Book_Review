@@ -7,6 +7,7 @@ use App\Services\GeneroService;
 use App\Http\Requests\GeneroUpdateRequest;
 use App\Http\Requests\GeneroStoreRequest;
 use App\Http\Resources\GeneroResource;
+use App\Http\Resources\LivroResource;
 use Illuminate\Http\JsonResponse;
 
 class GeneroController extends Controller
@@ -59,7 +60,23 @@ class GeneroController extends Controller
         }
 
         return new GeneroResource($genero);
+    }
 
+    //Lista o livro com seu respectivo genero
+    public function getComLivros()
+    {
+        $genero = $this->generoService->getComLivros();
+        return GeneroResource::collection($genero);
+    }
+
+    //Listar todos os livros de um genero especifico
+    public function findLivro(int $id){
+        try {
+            $livros = $this->generoService->findLivro($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Livro não existe'], 404);
+        }
+        return LivroResource::collection($livros);
     }
 }
 

@@ -8,6 +8,7 @@ use App\Http\Resources\AutorResource;
 use App\Http\Requests\AutorStoreRequest;
 use App\Http\Requests\AutorUpdateRequest;
 use Illuminate\Http\JsonResponse;
+use App\Http\Resources\LivroResource;
 
 
 class AutorController extends Controller
@@ -60,6 +61,22 @@ class AutorController extends Controller
             return response()->json(['error'=>'Autor não encontrado'],404);
         }
         return new AutorResource($autor);
+    }
+
+    public function getComLivros()
+    {
+        $autores = $this->autorService->getComLivros();
+        return AutorResource::collection($autores);
+    }
+
+    public function findLivro(int $id)
+    {
+        try{
+            $livros = $this->autorService->findLivro($id);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error'=>'Autor não encontrado'],404);
+        }
+        return LivroResource::collection($livros);
     }
 
 }

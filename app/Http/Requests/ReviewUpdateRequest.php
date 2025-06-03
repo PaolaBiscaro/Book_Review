@@ -11,7 +11,7 @@ class ReviewUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class ReviewUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nota'=>'sometimes|integer|min:1|max:5',
+            'nota'=>'sometimes|integer|min:0|max:5',
             'texto'=>'sometimes|nullable|string|max:1000',
             'livro_id'=>'sometimes|exists:livros,id',
             'usuario_id'=>'sometimes|exists:usuarios,id'
