@@ -63,7 +63,7 @@ class UsuarioController extends Controller
         return new UsuarioResource($usuario);
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         try{
             $usuario = $this->usuarioService->delete($id);

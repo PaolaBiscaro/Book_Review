@@ -29,7 +29,7 @@ class LivroController extends Controller
         return LivroResource::collection($livros);
     }
 
-    public function details($id){
+    public function details(int $id){
         try{
             $livro = $this->livroService->details($id);
         }catch(ModelNotFoundException $e){
@@ -57,7 +57,7 @@ class LivroController extends Controller
         return new LivroResource($livro);
     }
 
-    public function delete($id){
+    public function delete(int $id){
         try{
             $livro = $this->livroService->delete($id);
         }catch(ModelNotFoundException $e){
@@ -88,7 +88,7 @@ class LivroController extends Controller
     public function getComGeneros()
     {
         $livros = $this->livroService->getComGeneros();
-        return BookResource::collection($livros);
+        return LivroResource::collection($livros);
     }
 
     //Buscar livros de um genero especifico

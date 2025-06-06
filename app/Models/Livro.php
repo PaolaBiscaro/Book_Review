@@ -17,7 +17,7 @@ class Livro extends Model
     }
 
     #Relação Livro possui um Genero
-    public function genero(){
+    public function generos(){
         return $this->belongsTo(
             Genero::class, 'genero_id', 'id'
         );
